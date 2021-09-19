@@ -18,10 +18,16 @@ export default class RandomPlanet extends Component {
   componentDidMount(){
    this.interval = setInterval(this.updadePlanet, 5000)  
 }
-//   componentWillUnmount() {
-//     clearInterval(this.interval)
-//   }
+  componentWillUnmount() {
+    clearInterval(this.interval)
+        console.log("componentWillUnmount");
 
+  }
+
+  // componentWillUnmount() {
+  //   clearInterval(this.interval)
+  //   console.log("componentWillUnmount");
+  // }
 
   onPlanetLoadet = (planet) => {
     this.setState({
