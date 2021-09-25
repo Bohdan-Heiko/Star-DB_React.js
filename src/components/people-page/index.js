@@ -28,6 +28,7 @@ export default class PeoplePage extends Component {
   render() {
 
     if (this.hasError) {
+      console.log('1');
       return <ErrorIndicator />
     }
 
