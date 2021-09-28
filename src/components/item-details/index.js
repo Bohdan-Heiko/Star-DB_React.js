@@ -3,12 +3,13 @@ import SwapiServise from '../../service/swapi-service';
 
 import './person-details.css';
 
-export default class PersonDetails extends Component {
+export default class ItemDetails extends Component {
 
   swapiServise = new SwapiServise();
 
   state = {
-    person: null
+    item: null,
+    image: null
   }
 
   componentDidMount() {
@@ -16,37 +17,44 @@ export default class PersonDetails extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.personId !== prevProps.personId) {
+    if (this.props.itemId !== prevProps.itemId) {
       this.updatedPerson()
     }
   }
 
   updatedPerson() {
-    const { personId } = this.props
+    const { itemId, getData, getImageUrl } = this.props
     
-    if (!personId) {
+    if (!itemId) {
       return;
     }
 
-    this.swapiServise
-      .getPerson(personId)
-      .then((person) => {
-        this.setState({ person })
+    getData(itemId)
+      .then((item) => {
+        this.setState({
+          item,
+          image: getImageUrl(item)
+        
+        })
       })
+    
   }
 
   render() {
 
-    if (!this.state.person) {
+    if (!this.state.item) {
       return <span>Select peson from list</span>
     }
 
-    const {id, name, gender, birthYear, eyeColor } = this.state.person;
+    const { item, image } = this.state;
+    
+    const { id, name, gender,
+      birthYear, eyeColor } = item;
 
     return (
       <div className="person-details card">
         <img className="person-image"
-          src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}  alt='characters'/>
+          src={image}  alt='characters'/>
 
         <div className="card-body">
           <h4>{name}</h4>
