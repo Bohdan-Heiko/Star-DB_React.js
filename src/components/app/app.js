@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
+import './app.css';
 
 import Header from '../header';
 import RandomPlanet from '../random-planet';
-
-import './app.css';
 import ErrorIndicator from '../error-indicator';
-import PeoplePage from '../people-page';
-import ItemList from '../item-list';
-import PersonDetails from '../person-details';
+import Record from '../record';
 import SwapiServise from '../../service/swapi-service';
+import Row from '../row';
+import ItemDetails from '../item-details';
+import ErrorBoundry from '../error-boundry';
+import ItemList from '../item-list'
+// import PeoplePage from '../people-page'
 
 export default class App extends Component {
 
@@ -18,40 +20,70 @@ export default class App extends Component {
     hasError: false
   }
 
-
-
   componentDidCatch() {
   this.setState({hasError:true})
-}
-
+  }
+  
   render() {
+
+    const { getPerson,
+            getStarships,
+            getPersonImage,
+            getStarshipImage,
+            getAllPeople,
+            getAllPlanets
+    } = this.swapiService
 
     if (this.hasError) {
       return <ErrorIndicator />
     }
   
-    return (
-      <div>
-        <Header />
-        <RandomPlanet />
-      
-        <PeoplePage />
-        
-        {/* <div className="row mb2">
-          <div className="col-md-6">
-            <ItemList itemSelected={this.onPersonSelected}
-              getData={this.swapiService.getAllPlanets}
-              // render function
-              renderItem = {(item) => item.name}
-            />
-          </div>
-          <div className="col-md-6">
-            <PersonDetails personId={this.state.selectedPerson} />
-          </div>
-        </div> */}
+    const peopleDetails = (
+      <ItemDetails
+        itemId={5}
+        getData={getPerson}
+        getImageUrl={getPersonImage}
+      >
+        <Record field='gender' label='gender' />
+        <Record field='eyeColor' label='Eye Color' />
+      </ItemDetails>
+    )
 
-        
-      </div>
+    const starshipDetails = (
+      <ItemDetails
+        itemId={10}
+        getData={getStarships}
+        getImageUrl={getStarshipImage}
+      >
+        <Record field='model' label='Model' />
+        <Record field='length' label='Length' />
+        <Record field='cost_in_credits' label='Cost' />
+
+
+      </ItemDetails>
+    )
+
+    return (
+      <ErrorBoundry>
+        <div className='stardb-app'>
+          <Header />
+
+          <ItemList
+            getData={getAllPeople}
+            itemSelected={() => {}}
+          >
+          {({name}) => <span>{name}</span>}
+          </ItemList>
+
+          <ItemList
+            getData={getAllPlanets}
+            itemSelected={() => {}}
+          >
+            {({name}) => <span>{name}</span>}
+          </ItemList>
+        </div>
+
+      </ErrorBoundry>
     );
   }
 };
