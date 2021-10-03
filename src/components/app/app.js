@@ -10,6 +10,8 @@ import Row from '../row';
 import ItemDetails from '../item-details';
 import ErrorBoundry from '../error-boundry';
 import ItemList from '../item-list'
+import { PersonList, PlanetList, StarshipList } from '../sw-components/item-lists';
+import { PersonDetails, PlanetDetails, StarshipDetails } from '../sw-components/details';
 // import PeoplePage from '../people-page'
 
 export default class App extends Component {
@@ -58,8 +60,6 @@ export default class App extends Component {
         <Record field='model' label='Model' />
         <Record field='length' label='Length' />
         <Record field='cost_in_credits' label='Cost' />
-
-
       </ItemDetails>
     )
 
@@ -67,20 +67,23 @@ export default class App extends Component {
       <ErrorBoundry>
         <div className='stardb-app'>
           <Header />
+          <RandomPlanet />
 
-          <ItemList
-            getData={getAllPeople}
-            itemSelected={() => {}}
-          >
-          {({name}) => <span>{name}</span>}
-          </ItemList>
+          <PersonDetails itemId={11} />
+          <PlanetDetails itemId={5} />
+          <StarshipDetails itemId={10} />
 
-          <ItemList
-            getData={getAllPlanets}
-            itemSelected={() => {}}
-          >
-            {({name}) => <span>{name}</span>}
-          </ItemList>
+          <PersonList />
+              
+          <div className="row" />
+
+          <PlanetList />
+           
+          <div className="row" />
+
+          <StarshipList />
+           
+          
         </div>
 
       </ErrorBoundry>
