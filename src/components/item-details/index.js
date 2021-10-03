@@ -1,23 +1,12 @@
 import React, { Component } from 'react';
-import SwapiServise from '../../service/swapi-service';
-
 import './person-details.css';
 
-const Record = ({ item, field, label }) => {
-  return (
-    <li className="list-group-item">
-      <span className="term">{label}</span>
-      <span>{field}</span>
-    </li>
-  )
-};
-
-export {
-  Record
-};
+import SwapiServise from '../../service/swapi-service';
 
 
-export default class ItemDetails extends Component {
+
+
+ export default class ItemDetails extends Component {
 
   swapiServise = new SwapiServise();
 
@@ -27,16 +16,16 @@ export default class ItemDetails extends Component {
   }
 
   componentDidMount() {
-    this.updatedPerson()
+    this.updatedItem()
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.itemId !== prevProps.itemId) {
-      this.updatedPerson()
+      this.updatedItem()
     }
   }
 
-  updatedPerson() {
+  updatedItem() {
     const { itemId, getData, getImageUrl } = this.props
     
     if (!itemId) {
@@ -48,19 +37,19 @@ export default class ItemDetails extends Component {
         this.setState({
           item,
           image: getImageUrl(item)
-        
         })
       })
-    
   }
 
   
-  render() {
+   render() {
+    
+     const { item, image } = this.state;
+
     if (!this.state.item) {
       return <span>Select peson from list</span>
     }
 
-    const { item, image } = this.state;
 
     const { name } = item;
 
@@ -74,7 +63,7 @@ export default class ItemDetails extends Component {
           <ul className="list-group list-group-flush">
             {
               React.Children.map(this.props.children, (child) => {
-                return child
+                return React.cloneElement(child, {item})
               })
            }
           </ul>
@@ -83,3 +72,9 @@ export default class ItemDetails extends Component {
     )
   }
 }
+
+
+
+
+
+

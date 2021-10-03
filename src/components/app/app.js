@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
+import './app.css';
 
 import Header from '../header';
 import RandomPlanet from '../random-planet';
-
-import './app.css';
 import ErrorIndicator from '../error-indicator';
-import { Record } from '../item-details';
-
+import Record from '../record';
 import SwapiServise from '../../service/swapi-service';
 import Row from '../row';
 import ItemDetails from '../item-details';
+import ErrorBoundry from '../error-boundry';
+import ItemList from '../item-list'
+// import PeoplePage from '../people-page'
 
 export default class App extends Component {
 
@@ -25,13 +26,19 @@ export default class App extends Component {
   
   render() {
 
-    const {getPerson, getStarships, getPersonImage, getStarshipImage} = this.swapiService
+    const { getPerson,
+            getStarships,
+            getPersonImage,
+            getStarshipImage,
+            getAllPeople,
+            getAllPlanets
+    } = this.swapiService
 
     if (this.hasError) {
       return <ErrorIndicator />
     }
   
-    const itemDetails = (
+    const peopleDetails = (
       <ItemDetails
         itemId={5}
         getData={getPerson}
@@ -48,23 +55,35 @@ export default class App extends Component {
         getData={getStarships}
         getImageUrl={getStarshipImage}
       >
-      
+        <Record field='model' label='Model' />
+        <Record field='length' label='Length' />
+        <Record field='cost_in_credits' label='Cost' />
+
 
       </ItemDetails>
     )
 
     return (
-      <div>
-        <Header />
-        <RandomPlanet />
-        {/* <PeoplePage /> */}
-        <div className='row'></div>
+      <ErrorBoundry>
+        <div className='stardb-app'>
+          <Header />
 
-        <Row left={itemDetails}
-              right={starshipDetails}
-        />
+          <ItemList
+            getData={getAllPeople}
+            itemSelected={() => {}}
+          >
+          {({name}) => <span>{name}</span>}
+          </ItemList>
 
-      </div>
+          <ItemList
+            getData={getAllPlanets}
+            itemSelected={() => {}}
+          >
+            {({name}) => <span>{name}</span>}
+          </ItemList>
+        </div>
+
+      </ErrorBoundry>
     );
   }
 };
