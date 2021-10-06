@@ -22,18 +22,14 @@ const withChildFunction = (Wrapped, fn) => {
   })
 }
 
-const listWithChildren = withChildFunction(
-  ItemList,
-  ({name}) => <span>{name}</span>
-  // renderName
-)
+// const listWithChildren = withChildFunction(
+//   ItemList,
+//   ({name}) => <span>{name}</span>
+//   // renderName
+// )
 
 const renderName = ({ name }) => (<span>{name}</span>)
 const renderModelAndName = ({model, name}) => (<span>{name} ({model})</span>)
-
-// const PersonList = withData(listWithChildren, getAllPeople)
-// const PlanetList = withData(listWithChildren, getAllPlanets)
-// const StarshipList = withData(listWithChildren, getAllStarships)
 
 const PersonList = withData(withChildFunction(ItemList, renderName), getAllPeople)
 const PlanetList = withData(withChildFunction(ItemList, renderName), getAllPlanets)
