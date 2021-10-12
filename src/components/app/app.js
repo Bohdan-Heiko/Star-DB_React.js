@@ -10,7 +10,10 @@ import DummySwapiServise from '../../service/dummy-swapi-service';
 import ItemDetails from '../item-details';
 import ErrorBoundry from '../error-boundry';
 import { PersonList, PlanetList, StarshipList } from '../sw-components/item-lists';
-import { PersonDetails, PlanetDetails, StarshipDetails } from '../sw-components/details';
+import PersonDetails from '../sw-components/details/person-details'
+import PlanetDetails from '../sw-components/details/planet-details'
+import StarshipDetails from '../sw-components/details/starship-details'
+
 import { SwapiServiceProvider } from '../swapi-service-context'
 
 // import PeoplePage from '../people-page'
