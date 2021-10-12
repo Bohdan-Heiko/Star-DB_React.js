@@ -6,15 +6,21 @@ import RandomPlanet from '../random-planet';
 import ErrorIndicator from '../error-indicator';
 import Record from '../record';
 import SwapiServise from '../../service/swapi-service';
-import Row from '../row';
+import DummySwapiServise from '../../service/dummy-swapi-service';
 import ItemDetails from '../item-details';
 import ErrorBoundry from '../error-boundry';
-import ItemList from '../item-list'
+import { PersonList, PlanetList, StarshipList } from '../sw-components/item-lists';
+import PersonDetails from '../sw-components/details/person-details'
+import PlanetDetails from '../sw-components/details/planet-details'
+import StarshipDetails from '../sw-components/details/starship-details'
+
+import { SwapiServiceProvider } from '../swapi-service-context'
+
 // import PeoplePage from '../people-page'
 
 export default class App extends Component {
 
-  swapiService = new SwapiServise();
+  swapiService = new DummySwapiServise();
 
   state = {
     hasError: false
@@ -58,31 +64,30 @@ export default class App extends Component {
         <Record field='model' label='Model' />
         <Record field='length' label='Length' />
         <Record field='cost_in_credits' label='Cost' />
-
-
       </ItemDetails>
     )
 
     return (
       <ErrorBoundry>
+        <SwapiServiceProvider value={this.swapiService} >
         <div className='stardb-app'>
           <Header />
+          <RandomPlanet />
 
-          <ItemList
-            getData={getAllPeople}
-            itemSelected={() => {}}
-          >
-          {({name}) => <span>{name}</span>}
-          </ItemList>
+          <PersonDetails itemId={11} />
+          <PlanetDetails itemId={5} />
+          <StarshipDetails itemId={10} />
 
-          <ItemList
-            getData={getAllPlanets}
-            itemSelected={() => {}}
-          >
-            {({name}) => <span>{name}</span>}
-          </ItemList>
+          <PersonList />
+  
+          <div className="row" />
+            <PlanetList />
+            
+          <div className="row" />
+            <StarshipList />
+            
         </div>
-
+        </SwapiServiceProvider>
       </ErrorBoundry>
     );
   }
