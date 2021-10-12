@@ -8,27 +8,19 @@ import WithSwapiService from "../../hoc-helpers/with-swapi-service";
 
 
 
-const PersonDetails = ({ itemId }) => {
-
+const PersonDetails = ({ itemId, swapiService }) => {
+  const { getPerson, getPersonImage } = swapiService
   return (
-    <SwapiServiseConsumer>
-      {
-        ({ getPerson, getPersonImage }) => {
-          return (
-            <ItemDetails
-              itemId={itemId}
-              getData={getPerson}
-              getImageUrl={getPersonImage}
-            >
-              <Record field='gender' label='gender' />
-              <Record field='eyeColor' label='Eye Color' />
-            </ItemDetails>
-          )
-        }
-      }
-    </SwapiServiseConsumer>
-
+    <ItemDetails
+      itemId={itemId}
+      getData={getPerson}
+      getImageUrl={getPersonImage}
+    >
+      <Record field='gender' label='gender' />
+      <Record field='eyeColor' label='Eye Color' />
+    </ItemDetails>
   )
 }
 
-export default PersonDetails
+
+export default WithSwapiService(PersonDetails)
