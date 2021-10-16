@@ -21,6 +21,7 @@ import { SwapiServiceProvider } from '../swapi-service-context'
 export default class App extends Component {
 
   swapiService = new DummySwapiServise();
+  // swapiService = new SwapiServise();
 
   state = {
     hasError: false

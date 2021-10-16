@@ -33,7 +33,7 @@ export default class PeoplePage extends Component {
       <ItemList itemSelected={this.onPersonSelected}
         getData={this.swapiService.getAllPeople}
       >
-        {/* props.vhildren  */}
+        {/* props.children  */}
         {(i) => (
          `${i.name}, ${i.gender}`)
         }
