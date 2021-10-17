@@ -10,6 +10,7 @@ import PeoplePages from '../pages/peoplePages';
 import { SwapiServiceProvider } from '../swapi-service-context'
 import PlanetPages from '../pages/planetPages';
 import StarshipPages from '../pages/starshipsPages';
+import RandomPlanet from '../random-planet';
 
 export default class App extends Component {
 
@@ -45,6 +46,7 @@ export default class App extends Component {
         <SwapiServiceProvider value={this.state.swapiService} >
         <div className='stardb-app'>
             <Header changeData={this.changeData} />
+            <RandomPlanet />
             
             <PeoplePages />
             <PlanetPages />
