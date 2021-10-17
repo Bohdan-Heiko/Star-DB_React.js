@@ -4,14 +4,17 @@ import { SwapiServiseConsumer } from '../swapi-service-context'
 
 
 
-const WithSwapiService = (Wrapped) => {
+const WithSwapiService = (mapMethodToProps) => (Wrapped) => {
 
   return ((props) => {
     return (
       <SwapiServiseConsumer>
         {
           (swapiService) => {
-            <Wrapped {...props} swapiService={swapiService} />
+            const serviceProps = mapMethodToProps(swapiService);
+            return (
+              <Wrapped {...props} {...serviceProps} />
+            )
           }
         }
       </SwapiServiseConsumer>
