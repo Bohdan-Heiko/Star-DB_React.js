@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Route} from 'react-router-dom'
+import { Route, Switch} from 'react-router-dom'
 import './app.css';
 
 
@@ -51,15 +51,17 @@ export default class App extends Component {
             <Header changeData={this.changeData} />
             <RandomPlanet />
             
-            <Route path='/' exact render={() => <h2>Welcome to StarDB</h2>}/>
-            <Route path='/people' component={PeoplePages} />
-            <Route path='/planets' component={PlanetPages} />
-            <Route path='/starships' exact component={StarshipPages} />
-            <Route path='/starships/:id' render={({ match }) => {
-              const {id} = match.params
-              return <StarshipDetails itemId={id}/>
-            }} />
-
+            <Switch>
+              <Route path='/' exact render={() => <h2>Welcome to StarDB</h2>} />
+              <Route path='/people/:id?' component={PeoplePages} />
+              <Route path='/planets' component={PlanetPages} />
+              <Route path='/starships' exact component={StarshipPages} />
+              <Route path='/starships/:id' render={({ match }) => {
+                const { id } = match.params
+                return <StarshipDetails itemId={id} />
+              }} />
+              <Route render={() => <h2>Page not found</h2>}/>
+            </Switch>
         </div>
         </SwapiServiceProvider>
       </ErrorBoundry>

@@ -5,9 +5,7 @@ import {withRouter} from 'react-router-dom'
 const StarshipPages = ({history}) => {
 
   return (
-    <StarshipList itemSelected={(itemId) => {
-      history.push(`/starships/${itemId}`)
-    }} />
+    <StarshipList itemSelected={(itemId) => history.push(itemId)} />
   )
 }
 

@@ -19,12 +19,11 @@ const StarshipDetails = (props) => {
       <button
         className='btn btn-primary btn-small bt-sm'
         onClick={() => {
-          history.push('/starships')
+          history.push('/starships/')
         }}>Go to Starship page</button>
       
     </ItemDetails>
-  )
-    
+  )  
 }
 
 
